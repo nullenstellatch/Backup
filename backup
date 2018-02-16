@@ -1,0 +1,30 @@
+#!/bin/bash
+#arguments: directory_name archive_name ext ext ...
+IFS=$'\n'
+
+if [ $# -gt 2 ]
+then
+	DIRNAME=$1
+	shift
+	ARCNAME=$1
+	shift
+	mkdir $DIRNAME
+	NONA="NONARCHIVARTED$RANDOM"
+	mkdir $NONA
+	for TYPENAME in $@
+	do
+	FILENAMES=$(find ~/ -type f -name "*.$TYPENAME")
+		for FILENAME in $FILENAMES
+		do
+			CNT=''
+			while [ -f "./$NONA/$(basename $FILENAME .$TYPENAME)$CNT.$TYPENAME" ]
+			do
+				let CNT++;
+			done
+			cp $FILENAME "./$NONA/$(basename $FILENAME .$TYPENAME)$CNT.$TYPENAME"
+		done 
+	done
+	tar -cf "$ARCNAME.tar" ./$NONA/*
+	mv "$ARCNAME.tar" ./$DIRNAME
+	echo Done
+fi
