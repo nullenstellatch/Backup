@@ -9,7 +9,7 @@ then
 	ARCNAME=$1
 	shift
 	mkdir $DIRNAME
-	NONA="NONARCHIVARTED$RANDOM"
+	NONA="BACKUPNONARCHIVATED"
 	mkdir $NONA
 	for TYPENAME in $@
 	do
