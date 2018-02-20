@@ -16,12 +16,7 @@ then
 	FILENAMES=$(find ~/ -type f -name "*.$TYPENAME")
 		for FILENAME in $FILENAMES
 		do
-			CNT=''
-			while [ -f "./$NONA/$(basename $FILENAME .$TYPENAME)$CNT.$TYPENAME" ]
-			do
-				let CNT++;
-			done
-			cp $FILENAME "./$NONA/$(basename $FILENAME .$TYPENAME)$CNT.$TYPENAME"
+			cp --parents $FILENAME "./$NONA/"
 		done 
 	done
 	tar -cf "$ARCNAME.tar" ./$NONA/*
